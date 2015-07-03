@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class BurrowsWheelerTransformDecompress {
+public class BurrowsWheelerTransformDecompress { 
 
 	private final static int TEST_CASE_CONSTRAINT_LIMIT = 20;
 	

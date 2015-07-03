@@ -7,7 +7,7 @@ public class UnwantedParanthesis
 	private String expression;
 	
 	public UnwantedParanthesis(String expression)
-	{
+	{ 
 		this.expression = expression;
 	}
 	

@@ -1,6 +1,6 @@
 package com.inheritance;
 
-public class Base implements Comparable<Base> {
+public class Base implements Comparable<Base> { 
 	
 	int base;
 	

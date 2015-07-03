@@ -1,6 +1,6 @@
 package com.prodcons;
 
-//ProdCons2.java
+//ProdCons2.java 
 
 class ProdCons2
 {
