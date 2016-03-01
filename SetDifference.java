@@ -57,11 +57,7 @@ public class SetDifference {
 			}
 		}
 		
-		System.out.print("setOne - setTwo = ");
-		for(Integer number : finalSet) {
-			System.out.print(number + " ");
-		}
-		System.out.println();
+		System.out.println("setOne - setTwo = " + finalSet);
 		
 		validateResult();
 		
