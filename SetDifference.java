@@ -8,7 +8,7 @@ public class SetDifference {
 		SetDifference sd = new SetDifference();
 		int setOne[] = {2, 8};
 		int setTwo[] = {4, 14};
-		//setOne - setTwo = 2, 3, 9, 10, 11, 12, 13, 14
+		//setOne - setTwo = 2, 3
 		sd.findDifferenceInSets(setOne, setTwo);
 	}
 
