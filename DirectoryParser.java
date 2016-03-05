@@ -1,117 +1,127 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-
-class DirectoryParser<Key extends Comparable<Key>, Value> {
-	
-	private class Node {
-		Key key;
-		Value value;
-		Node left, right;
-		public Node(Key key, Value value) {
-			this.key = key;
-			this.value = value;
-			this.left = null;
-			this.right = null;
-		}
-	}
+class DirectoryParser {
 	
 	//THE Root
 	Node root;
-	
-	public void put(Key key, Value value) {
-		this.root = put(root, key, value);
+		
+	public DirectoryParser(Node root) {
+		this.root = root;
 	}
 	
-	private Node put(Node root, Key key, Value value) {
-		if(root == null) {
-			Node newNode = new Node(key, value);
-			return newNode;
-		} 
-		if(root.key.compareTo(key) < 0) {
-			root.left = put(root.left, key, value);
+	public static class Node {
+		
+		String key;
+		List<Node> children;
+		List<Node> leaves;
+		String incrementalPath;
+		
+		public Node(String key, String incrementalPath) {
+			this.key = key;
+			this.children = new ArrayList<Node>();
+			this.leaves = new ArrayList<Node>();
+			this.incrementalPath = incrementalPath;
 		}
-		if(root.key.compareTo(key) > 0) {
-			root.right = put(root.right, key, value);
+		
+		public void addChildNode(String incrementalPath, String[] nodes) {
+			
+			Node currentNode = new Node(nodes[0], incrementalPath + "/" + nodes[0]);
+			
+			if(nodes.length == 1) {
+				this.leaves.add(currentNode);
+				return;
+			} else {
+				int index = this.children.indexOf(currentNode);
+				if(index == -1) {
+					this.children.add(currentNode);
+					currentNode.addChildNode(currentNode.incrementalPath, Arrays.copyOfRange(nodes, 1, nodes.length));
+				} else {
+					Node existingNode = this.children.get(index);
+					existingNode.addChildNode(currentNode.incrementalPath, Arrays.copyOfRange(nodes, 1, nodes.length));
+				}
+			}
 		}
-		if(root.key.compareTo(key) == 0) {
-			root.value = value;
-		}
-		return root;
-	}
-
-	public boolean contains(Key key) {
-		if(this.root == null) {
+		
+		public boolean equals(Object otherNodeObj) {
+			if(!(otherNodeObj instanceof Node)) {
+				return false;
+			}
+			Node otherNode = (Node) otherNodeObj;
+			if(this.incrementalPath.equals(otherNode.incrementalPath)
+					&& this.key.equals(otherNode.key)) {
+				return true;
+			}
 			return false;
 		}
-		return contains(root, key);
-	}
+		
+		private void listDirectories(int increment) {
+			for(int i = 0; i < increment; i++) {
+				System.out.print(" ");
+			}
+			
+			System.out.println(this.incrementalPath + (isLeaf() ? " -> " + key : ""));
+			
+			for(Node child : this.children) {
+				child.listDirectories(increment + 2);
+			}
+			for(Node leaf : this.leaves) {
+				leaf.listDirectories(increment + 2);
+			}
+		}
 
-	private boolean contains(Node root, Key key) {
-		if(root.key.compareTo(key) < 0) {
-			contains(root.left, key);
+		/**
+		 * Node wth no children or leaves is a LEAF node
+		 * @return
+		 */
+		private boolean isLeaf() {
+			return this.children.isEmpty() && this.leaves.isEmpty();
 		}
-		if(root.key.compareTo(key) > 0) {
-			contains(root.right, key);
-		}
-		if(root.key.compareTo(key) == 0) {
-			return true;
-		}
-		return false;
+
 	}
 	
-	private void printTree() {
-		Node root = this.root;
-		System.out.print("Root: " + root.key + "/");
-		printLeftTree(root.left);
-		System.out.println();
-		printRightTree(root.right);
-	}
-
-	private Node printRightTree(Node right) {
-		if(right != null)
-		{
-			System.out.print(right.key + "/");
-			if(right.left != null)
-				right.left = printLeftTree(right.left);
-			right.right = printRightTree(right.right);
+	public void addDirectoryNode(String directory) {
+		if(root == null) {
+			return;
 		}
-		return right;
-	}
-
-	private Node printLeftTree(Node left) {
-		if(left != null)
-		{
-			System.out.print(left.key + "/");
-			if(left.right != null)
-				left.right = printLeftTree(left.right);
-			left.left = printLeftTree(left.left);
+		Node rootRef = root;
+		String[] nodes = directory.split("/");
+		if(nodes != null && nodes.length != 0 && (nodes[0] == null || nodes[0] == "")) {
+			nodes = Arrays.copyOfRange(nodes, 1, nodes.length);
 		}
-		return left;
+		rootRef.addChildNode(rootRef.incrementalPath, nodes);
+	}
+	
+	public void listDirectories() {
+		if(root == null) {
+			return;
+		}
+		Node commonRoot = null;
+		Node current = root;
+		while(current.leaves.size() <= 0) {
+			current = current.children.get(0);
+		}
+		commonRoot = current;
+		commonRoot.listDirectories(0);
 	}
 	
 	public static void main(String[] args) {
 		String slist[] = new String[] { "/mnt/sdcard/folder1/a/b/file1.file", "/mnt/sdcard/folder1/a/b/file2.file",
 				"/mnt/sdcard/folder1/a/b/file3.file", "/mnt/sdcard/folder1/a/b/file4.file",
 				"/mnt/sdcard/folder1/a/b/file5.file", "/mnt/sdcard/folder1/e/c/file6.file",
-				"/mnt/sdcard/folder2/d/file7.file", "/mnt/sdcard/folder2/d/file8.file", "/mnt/sdcard/file9.file" };
+				"/mnt/sdcard/folder2/d/file7.file", "/mnt/sdcard/folder2/d/file8.file", "/mnt/sdcard/file9.file", 
+				"/mnt/sdcard/folder1/a/b/file1.file" };
 		
-		DirectoryParser<String, String> dirParser = new DirectoryParser<String, String>();
+		DirectoryParser dirParser = new DirectoryParser(new Node("root", "root"));
 		
-		String root = "/";
-		
-		dirParser.put(root, root);
-	
 		for(String path : slist) {
-			String[] nodes = path.split("/");
-			for(int i = 0; i < nodes.length; i++) {
-				if(i == 0) {
-					dirParser.put(root, nodes[i]);
-				} else {
-					dirParser.put(nodes[i-1], nodes[i]);
-				}
-			}
+			System.out.println("Requesting to add: " + path);
+			dirParser.addDirectoryNode(path);
 		}
 		
-		dirParser.printTree();
+		System.out.println("Listing all directories: \n");
+		dirParser.listDirectories();
 	}
 
 }
