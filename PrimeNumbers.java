@@ -69,7 +69,12 @@ public class PrimeNumbers {
 	}
 	
 	/**
-	 * Making it a little bit more efficient by reducing the number of iterations in the inner loop
+	 * Making it a little bit more efficient by reducing the number of iterations in the inner loop.
+	 * If a number n is not a prime, it can be factored into two factors a and b:
+	 * n = a*b
+	 * If both a and b were greater than the square root of n, a*b would be greater than n. So, 
+	 * at least one of those factors must be less or equal to the square root of n, and to check 
+	 * if n is prime, we only need to test for factors less than or equal to the square root.
 	 * @param n
 	 */
 	public void printPrimeNumbersSqrt(int n) {
