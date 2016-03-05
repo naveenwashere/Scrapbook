@@ -43,7 +43,7 @@ public class PrimeNumbers {
 			System.out.println("Enter a number greater than 1!");
 		}
 		for(int i = 2; i <= n; i++) {
-			boolean isPrime = findPrime(i, i/2, 0);
+			boolean isPrime = findPrime(i, i/2, 1);
 			if(isPrime) {
 				System.out.print(i + " ");
 			}
@@ -54,7 +54,7 @@ public class PrimeNumbers {
 	 * Recursive method to find Prime number
 	 * @param i the actual number to determine if prime
 	 * @param j the number in decreasing order from i/2 to 1, which forms the divisor
-	 * @param k the stopping condition where k == 0
+	 * @param k the stopping condition where k == 1
 	 * @return true / false based on whether the number is prime or not
 	 */
 	private boolean findPrime(int i, int j, int k) {
