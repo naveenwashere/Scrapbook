@@ -67,6 +67,29 @@ public class PrimeNumbers {
 		}
 		return isPrime;
 	}
+	
+	/**
+	 * Making it a little bit more efficient by reducing the number of iterations in the inner loop
+	 * @param n
+	 */
+	public void printPrimeNumbersSqrt(int n) {
+		if(n < 1) {
+			System.out.println("Enter a number greater than 1!");
+		}
+		for(int i = 2; i <= n; i++) {
+			boolean isPrime = true;
+			for(int j = 1; j <= Math.sqrt(i); j++) {
+				//Prime number has only 1 and itself as divisors
+				if(i%j == 0 && j != 1) {
+					isPrime = false;
+					break;
+				}
+			}
+			if(isPrime) {
+				System.out.print(i + " ");
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 		PrimeNumbers pn = new PrimeNumbers();
@@ -76,6 +99,8 @@ public class PrimeNumbers {
 		pn.printPrimeNumbersTwo(100);
 		System.out.println("\nPrime numbers - Approach Recursion: ");
 		pn.primeNumsUsingRecursion(100);
+		System.out.println("\nPrime numbers - Approach SQRT: ");
+		pn.printPrimeNumbersSqrt(100);
 	}
 
 }
