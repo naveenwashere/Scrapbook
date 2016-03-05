@@ -54,7 +54,7 @@ public class PrimeNumbers {
 	 * Recursive method to find Prime number
 	 * @param i the actual number to determine if prime
 	 * @param j the number in decreasing order from i/2 to 1, which forms the divisor
-	 * @param k the stopping condition where k = i/2
+	 * @param k the stopping condition where k == 0
 	 * @return true / false based on whether the number is prime or not
 	 */
 	private boolean findPrime(int i, int j, int k) {
