@@ -45,7 +45,8 @@ public class DinosaurProblem {
 	}
 
 	public static void main(String[] args) {
-		int dinos[] = { -80000, -79950, 20, 70, 22, 60, 58, 65, 1950, 2004, 25, 30, -79990, -79960, 20, 60 };
+		//int dinos[] = { -80000, -79950, 20, 70, 22, 60, 58, 65, 1950, 2004, 25, 30, -79990, -79960, 20, 60 };
+		int dinos[] = { 1, 4, 2, 5, 9, 12, 5, 9, 5, 12};
 		DinosaurProblem dp = new DinosaurProblem();
 		System.out.println(dp.largestNumOfDinosAliveAtOneTime(dinos));
 	}

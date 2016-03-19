@@ -2,7 +2,7 @@
 public class ReverseNumberRecursion {
 
 	public static void main(String[] args) {
-		int num = 123;
+		int num = 123456789;
 		ReverseNumberRecursion rnr = new ReverseNumberRecursion();
 		System.out.println(rnr.reverseNumber(num));
 	}

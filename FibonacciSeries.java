@@ -12,7 +12,7 @@ public class FibonacciSeries {
 		}
 	}
 
-	public void printNext(int i, int j, int n) {
+	private void printNext(int i, int j, int n) {
 		int sum = i + j;
 		i = j;
 		j = sum;
@@ -21,10 +21,27 @@ public class FibonacciSeries {
 			printNext(i, j, n);
 		}
 	}
+	
+	public void fibMethod(int n) {
+		for(int i = 0; i < n; i++) {
+			System.out.print(printFibNums(i) + " ");
+		}
+	}
+	
+	private int printFibNums(int i) {
+		if(i == 0) {
+			return 0;
+		} else if(i == 1) {
+			return 1;
+		}
+		return printFibNums(i-1) + printFibNums(i-2);
+	}
 
 	public static void main(String[] args) {
 		FibonacciSeries fs = new FibonacciSeries();
 		fs.printSeries(10);
+		System.out.println();
+		fs.fibMethod(10);
 	}
 
 }

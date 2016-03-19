@@ -8,7 +8,7 @@ public class SetDifference {
 		SetDifference sd = new SetDifference();
 		int setOne[] = {2, 8};
 		int setTwo[] = {4, 14};
-		//setOne - setTwo = 2, 3
+		//setOne - setTwo = 2, 3, 9, 10, 11, 12, 13, 14
 		sd.findDifferenceInSets(setOne, setTwo);
 	}
 
@@ -44,7 +44,8 @@ public class SetDifference {
 
 		Set<Integer> finalSet = new HashSet<Integer>();
 		
-		//If doing setOne - setTwo, i.e., everything in setOne that's not in setTwo
+		//If doing setOne - setTwo, i.e., everything in setOne that's not in setTwo -> O(n2)
+		//Can be done using the MERGE logic of Merge Sort
 		for(int i = 0; i < setOneElements.length - 1; i++) {
 			boolean isFoundinSetTwo = false;
 			for(int j = 0; j < setTwoElements.length - 1; j++) {

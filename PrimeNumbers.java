@@ -43,7 +43,7 @@ public class PrimeNumbers {
 			System.out.println("Enter a number greater than 1!");
 		}
 		for(int i = 2; i <= n; i++) {
-			boolean isPrime = findPrime(i, i/2, 1);
+			boolean isPrime = findPrime(i, i/2);
 			if(isPrime) {
 				System.out.print(i + " ");
 			}
@@ -57,13 +57,13 @@ public class PrimeNumbers {
 	 * @param k the stopping condition where k == 1
 	 * @return true / false based on whether the number is prime or not
 	 */
-	private boolean findPrime(int i, int j, int k) {
+	private boolean findPrime(int i, int j) {
 		boolean isPrime = true;
-		if(j != k) {
+		if(j != 1) {
 			if(i % j == 0 && (j != 1 && j != i)) {
 				isPrime = false;
 			}
-			return isPrime && findPrime(i, j - 1, k);
+			return isPrime && findPrime(i, j - 1);
 		}
 		return isPrime;
 	}
