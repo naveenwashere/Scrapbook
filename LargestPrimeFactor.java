@@ -9,7 +9,7 @@ public class LargestPrimeFactor {
 
 	private long findLargestPrimeFactor(long n) {
 		long i = 0L;
-		for(i = 2; i < n; i++) {
+		for(i = 2; i <= n; i++) {
 			if(n % i == 0) {
 				n = n/i;
 				i--;
